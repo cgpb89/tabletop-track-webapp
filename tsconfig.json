@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
     "lib": [
       "dom",
       "dom.iterable",
+      "es6",
       "esnext"
     ],
     "allowJs": true,
@@ -17,9 +22,21 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "outDir": "build/dist",
+    "rootDir": "src",
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "acceptance-tests",
+    "config",
+    "build",
+    "jest",
+    "node_modules",
+    "scripts",
+    "src/setupTests.ts",
+    "webpack"
   ]
 }
