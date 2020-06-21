@@ -2,6 +2,7 @@ import React                from "react";
 import { Switch, Route }    from "react-router-dom";
 import Routes               from "../Routes/routes";
 import Header               from "./Header";
+import Footer               from "./Footer";
 
 class Layout extends React.Component<any, any> {
 
@@ -24,6 +25,7 @@ class Layout extends React.Component<any, any> {
                         })
                     }
                 </Switch>
+                <Footer />
             </React.Fragment>
         );
     }

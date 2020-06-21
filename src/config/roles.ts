@@ -1,4 +1,4 @@
-export default {
-    ADMIN: "admin",
-    EMPLOYEE: "employee"
-};
+export enum roles {
+    ADMIN= "admin",
+    EMPLOYEE= "employee"
+}

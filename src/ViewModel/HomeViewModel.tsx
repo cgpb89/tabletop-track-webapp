@@ -7,7 +7,7 @@ class HomeViewModel extends React.Component<any, any> {
 
     public render = () => {
         return (
-            <Container>
+            <Container className={`wrap-container`}>
                 <Row>
                     <h1>This is the home page</h1>
                 </Row>

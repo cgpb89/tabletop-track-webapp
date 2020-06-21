@@ -1,4 +1,4 @@
-import roles from "../config/roles";
+import { roles } from "../config/roles";
 import HomeViewModel from "../ViewModel/HomeViewModel";
 
 interface Route {
