@@ -14,6 +14,10 @@ export class ApplicationStore {
 
     private stores: { [key: string]: BaseStore } = {};
 
+    constructor() {
+        LoadStore.map(store => this.subscribe(store));
+    }
+
     public subscribe(store: ObjectType<BaseStore>) {
         this.stores[store.NAME_STORE] = new store(this);
     }
@@ -30,9 +34,6 @@ export class ApplicationStore {
         return <T><unknown>value;
     }
 
-    constructor() {
-        LoadStore.map(store => this.subscribe(store));
-    }
     public async initStorage() {
         const hydrate = await create();
 

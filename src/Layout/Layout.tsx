@@ -1,15 +1,15 @@
 import React                from "react";
 import { Switch, Route }    from "react-router-dom";
 import Routes               from "../Routes/routes";
-import Header               from "./Header";
 import Footer               from "./Footer";
+import HeaderViewModel      from "../ViewModel/HeaderViewModel";
 
 class Layout extends React.Component<any, any> {
 
     public render = () => {
         return (
             <React.Fragment>
-                <Header />
+                <HeaderViewModel />
                 <Switch>
                     {
                         Routes.map((page) => {
