@@ -1,8 +1,8 @@
-import React            from "react";
-import { UserStore }    from "../Store/UserStore";
-import { TokenStore }   from "../Store/TokenStore";
-import Header           from "../Layout/HeaderView";
-import { inject }       from "mobx-react";
+import React                        from "react";
+import { UserStore }                from "../Store/UserStore";
+import { TokenStore }               from "../Store/TokenStore";
+import Header                       from "../Layout/HeaderView";
+import { inject, observer }         from "mobx-react";
 
 interface HeaderViewModelProps {
     UserStore?: UserStore;
@@ -10,6 +10,7 @@ interface HeaderViewModelProps {
 }
 
 @inject(UserStore.NAME_STORE, TokenStore.NAME_STORE)
+@observer
 class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
 
 
@@ -26,9 +27,10 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
 
     public constructor(props: HeaderViewModelProps) {
         super(props);
-
         if (this.tokenStore.getAccessToken()) {
             this.setIsUserLogIn(true);
+        } else {
+            this.logIn();
         }
     }
 
@@ -40,8 +42,8 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
         return this.props.TokenStore as TokenStore;
     }
 
-    public logIn = () => {
-        this.userStore.
+    public logIn = async () => {
+        await this.tokenStore.setToken("cpereira@gmail.com", "Carlos");
     }
 
     public render = () => {

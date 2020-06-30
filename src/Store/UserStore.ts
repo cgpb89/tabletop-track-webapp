@@ -17,9 +17,6 @@ export class UserStore extends BaseStore {
     @observable
     private user: User | undefined;
 
-    @observable
-    private token: string;
-
     @persist("object")
     @serializable(date())
     private previousCallAccess: Date;
@@ -27,7 +24,6 @@ export class UserStore extends BaseStore {
     public constructor(props: any) {
         super(props);
         this.previousCallAccess = new Date();
-        this.token = "";
     }
 
     public getAjaxService(): AxiosService {
@@ -65,15 +61,6 @@ export class UserStore extends BaseStore {
 
         return this;
     }
-
-    public getToken(): string {
-        return this.token;
-    }
-
-    public setToken(token: string): void {
-        this.token = token;
-    }
-
 
     public async getUser(): Promise<User | undefined> {
         const now = moment().add(8, "h");

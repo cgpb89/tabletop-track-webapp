@@ -4,6 +4,10 @@ import { CONFIG_AXIOS_GET_API }                 from "../config/axios";
 import { TokenStore }                           from "../Store/TokenStore";
 import { ApplicationStore }                     from "../Store/ApplicationStore";
 import { stringify }                            from "querystring";
+import AccessToken                              from "../Models/User/AccessToken";
+import moment                                   from "moment";
+import API_ROUTES from 'src/config/API_ROUTES';
+import MethodsAvoidCORS from 'src/config/MethodsAvoidCORS';
 
 @Service()
 export default class AxiosService {
@@ -53,32 +57,18 @@ export default class AxiosService {
         this._axios.interceptors.response.use();
     }
 
-    public axiosPost = (url: string, params: any): AxiosPromise<any> => {
-        return Axios.post(url, params)
-            .then(function (response) {
-                return response;
-            })
-            .catch(function (error) {
-                console.log(error);
-                return error;
-            });
-    }
+    public getToken = async (email: string, password: string) => {
+        const params = {
+            email,
+            password
+        };
+        const response = await MethodsAvoidCORS.axiosPost(API_ROUTES.POST_TOKEN, params);
 
-    public axiosGet = (url: string, params?: any): AxiosPromise<any> => {
-        return Axios.get(url, params)
-            .then(function (response) {
-                if (response.status === 200) {
-                    return response;
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                return error;
-            });
-    }
+        const newToken: AccessToken = new AccessToken();
+        newToken.setAccessToken(response.data.token);
+        newToken.setAccessTokenExpiresAt(moment().add(1, "days").toDate());
 
-    public getToken = (email: string, password: string) => {
-
+        return newToken;
     }
 
 }
