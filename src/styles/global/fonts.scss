@@ -1,0 +1,21 @@
+.headlines-primary {
+    font-weight: 400;
+}
+
+.titles-primary {
+    font-weight: 500;
+
+    &.medium {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 22px;
+    }
+}
+
+.paragraph-primary {
+    font-weight: 500;
+}
+
+.label-primary {
+    font-weight: 500;
+}

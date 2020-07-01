@@ -1,15 +1,16 @@
-import React                                                from "react";
+import React, { ReactEventHandler }                                                from "react";
 import { AppBar, Toolbar, IconButton, Typography, Button }  from "@material-ui/core";
 import MenuIcon                                             from "@material-ui/icons/Menu";
 
 interface HeaderProps {
     isUserLogin: boolean;
+    onLogIn: (ev: React.MouseEvent<HTMLElement>) => void;
 }
 
 class Header extends React.Component<HeaderProps, any> {
 
     public render = () => {
-        const { isUserLogin } = this.props;
+        const { isUserLogin, onLogIn } = this.props;
         return (
             <div className={`header`}>
                 <AppBar position="static">
@@ -22,9 +23,11 @@ class Header extends React.Component<HeaderProps, any> {
                         </Typography>
 
                         {isUserLogin ?
-                            <></> :
+                            <Button color="inherit"
+                            onClick={(ev: React.MouseEvent<HTMLElement>) => {
+                                onLogIn(ev);
+                            }}>Login</Button> :
                             <>
-                                <Button color="inherit">Login</Button>
                                 <Button color="inherit">Signup</Button>
                             </>}
                     </Toolbar>

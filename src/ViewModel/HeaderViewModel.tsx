@@ -3,6 +3,8 @@ import { UserStore }                from "../Store/UserStore";
 import { TokenStore }               from "../Store/TokenStore";
 import Header                       from "../Layout/HeaderView";
 import { inject, observer }         from "mobx-react";
+import LoginViewModel               from "./LoginViewModel";
+import { observable } from "mobx";
 
 interface HeaderViewModelProps {
     UserStore?: UserStore;
@@ -15,6 +17,17 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
 
 
     private isUserLogIn: boolean = false;
+
+    @observable
+    private showLoginMenu: boolean;
+
+    public getShowLoginMenu(): boolean {
+        return this.showLoginMenu;
+    }
+
+    public setShowLoginMenu = (showLoginMenu: boolean) => {
+        this.showLoginMenu = showLoginMenu;
+    }
 
     public getIsUserLogIn(): boolean {
         return this.isUserLogIn;
@@ -32,6 +45,8 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
         } else {
             this.logIn();
         }
+
+        this.showLoginMenu = false;
     }
 
     get userStore(): UserStore {
@@ -46,11 +61,21 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
         await this.tokenStore.setToken("cpereira@gmail.com", "Carlos");
     }
 
-    public render = () => {
-        return(
-            <Header
-            isUserLogin={this.getIsUserLogIn()}
-            />
+    public onLogIn = () => {
+        this.setShowLoginMenu(!this.getShowLoginMenu());
+    }
+
+    public render(): React.ReactNode {
+        return (
+            <>
+                <Header
+                    isUserLogin={this.getIsUserLogIn()}
+                    onLogIn={this.onLogIn}
+                />
+                <LoginViewModel
+                    showMenu={this.getShowLoginMenu()}
+                    setShowMenu={this.setShowLoginMenu} />
+            </>
         );
     }
 

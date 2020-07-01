@@ -1,0 +1,25 @@
+.login {
+    background-color: none;
+    transition: ease-in .4s;
+
+    .full-list {
+        width: "auto";
+    }
+
+    :nth-child(3) {
+        // background: linear-gradient(to bottom, $secondary-color, transparent);
+        background-color: white;
+    }
+
+    .content {
+        padding: 30px 20px;
+        width: 350px;
+
+        .login-input {
+            margin: 20px 0;
+            width: 300px;
+        }
+    }
+
+
+}
