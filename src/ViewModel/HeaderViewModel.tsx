@@ -3,7 +3,7 @@ import { UserStore }                from "../Store/UserStore";
 import { TokenStore }               from "../Store/TokenStore";
 import Header                       from "../Layout/HeaderView";
 import { inject, observer }         from "mobx-react";
-import LoginViewModel               from "./LoginViewModel";
+import LoginViewModel               from "../Views/Components/LoginView";
 import { observable } from "mobx";
 
 interface HeaderViewModelProps {
