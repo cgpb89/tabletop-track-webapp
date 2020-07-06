@@ -1,0 +1,44 @@
+@mixin button-bg($bg) {
+    background: $bg;
+    &:hover {
+      background:darken($bg,8%);
+      color: $secondary-color;
+      transition: all 0.3s ease;
+    }
+    &:active {
+      background:darken($bg,25%);
+    } 
+  }
+
+  @mixin button-outline($bg, $border) {
+    background: transparent;
+    &:hover {
+      background:darken($bg,8%);
+      border-color: $border;
+      color: $secondary-color;
+      transition: all 0.3s ease;
+    }
+    &:active {
+      background:darken($border,25%);
+      border-color: none;
+    } 
+    &:focus {
+      box-shadow: none
+    } 
+  }
+  
+
+  @mixin respond($breakpoint){
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) { @content };    //600px
+    }
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) { @content };    //900px
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) { @content };    //1200px
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.4em) { @content };    //1800px
+    }
+  }

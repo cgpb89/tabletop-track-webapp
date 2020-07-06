@@ -1,5 +1,11 @@
 .headlines-primary {
+    font-size: 20px;
     font-weight: 400;
+    line-height: 22px;
+
+    @include respond(phone) {
+        font-size: 18px;
+    }
 }
 
 .titles-primary {
@@ -13,9 +19,25 @@
 }
 
 .paragraph-primary {
+    font-size: 14px;
     font-weight: 500;
+
+    @include respond(phone) {
+        font-size: 10px;
+    }
+
+    .medium{
+        @include respond(phone) {
+            font-size: 12px;
+        }
+    }
 }
 
 .label-primary {
+    font-size: 14px;
     font-weight: 500;
+
+    @include respond(phone) {
+        font-size: 12px;
+    }
 }

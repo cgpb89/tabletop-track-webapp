@@ -1,6 +1,7 @@
-import React, { ReactEventHandler }                                                from "react";
+import React, { ReactEventHandler }                         from "react";
 import { AppBar, Toolbar, IconButton, Typography, Button }  from "@material-ui/core";
 import MenuIcon                                             from "@material-ui/icons/Menu";
+import ButtonC                                              from "../Views/Components/Forms/ButtonC";
 
 interface HeaderProps {
     isUserLogin: boolean;
@@ -18,18 +19,18 @@ class Header extends React.Component<HeaderProps, any> {
                         <IconButton edge="start" className={`menu`} color="inherit" aria-label="menu">
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" className={`page-title`}>
+                        <Typography variant="h6" className={`page-title headlines-primary`}>
                             TableTop Track
                         </Typography>
 
-                        {isUserLogin ?
-                            <Button color="inherit"
+                        {!isUserLogin ? <ButtonC
+                        className={`btn btn-white-outline label-primary`}
+                            label={"Login"}
                             onClick={(ev: React.MouseEvent<HTMLElement>) => {
                                 onLogIn(ev);
-                            }}>Login</Button> :
-                            <>
-                                <Button color="inherit">Signup</Button>
-                            </>}
+                            }} /> :
+                            <span className={`icon-wondering`}></span>
+                        }
                     </Toolbar>
                 </AppBar>
             </div>

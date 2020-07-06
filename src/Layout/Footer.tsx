@@ -7,14 +7,14 @@ class Footer extends React.Component<any, any> {
 
     public render = () => {
         return (
-            <footer className={`footer`}>
+            <footer className={`footer paragraph-primary`}>
                 <Container>
                     <Row>
                         <Col xs="12" md="12">
-                            <p>
-                            <span className="d-block">Made by Carlos Pereira Brenes.</span>
-                            <span className="d-block">Email: gpereirab89@gmail.com</span>
-                            </p>
+                            <div>
+                                <span className="d-block">Made by Carlos Pereira Brenes.</span>
+                                <span className="d-block">Email: gpereirab89@gmail.com</span>
+                            </div>
                         </Col>
                     </Row>
                 </Container>

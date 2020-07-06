@@ -1,5 +1,11 @@
 body {
-    background-color: lightgrey;
+    background-image:
+      url(../../images/GameCollection.jpg);
+    background-size: cover;
+    /* whatever the view port it will fit the element*/
+    background-position: top;
+    position: relative;
+
     font-family: 'Josefin Sans', sans-serif;
     min-height: 100vh;
 
@@ -7,6 +13,10 @@ body {
         background-color: $white-color;
         min-height: 100vh;
         padding: 85px 40px;
+
+        @include respond(phone) {
+            padding: 70px 15px;
+        }
     }
 
     input{

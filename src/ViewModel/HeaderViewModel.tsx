@@ -3,7 +3,7 @@ import { UserStore }                from "../Store/UserStore";
 import { TokenStore }               from "../Store/TokenStore";
 import Header                       from "../Layout/HeaderView";
 import { inject, observer }         from "mobx-react";
-import LoginViewModel               from "../Views/Components/LoginView";
+import LoginView                    from "../Views/Components/LoginView";
 import { observable } from "mobx";
 
 interface HeaderViewModelProps {
@@ -15,6 +15,26 @@ interface HeaderViewModelProps {
 @observer
 class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
 
+    @observable
+    private email: string;
+    @observable
+    private password: string;
+
+    public getEmail(): string {
+        return this.email;
+    }
+
+    public setEmail = (email: string) => {
+        this.email = email;
+    }
+
+    public getPassword(): string {
+        return this.password;
+    }
+
+    public setPassword = (password: string) => {
+        this.password = password;
+    }
 
     private isUserLogIn: boolean = false;
 
@@ -42,10 +62,9 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
         super(props);
         if (this.tokenStore.getAccessToken()) {
             this.setIsUserLogIn(true);
-        } else {
-            this.logIn();
         }
-
+        this.email = "";
+        this.password = "";
         this.showLoginMenu = false;
     }
 
@@ -57,12 +76,22 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
         return this.props.TokenStore as TokenStore;
     }
 
-    public logIn = async () => {
+    public logIn = async (email: string, password: string) => {
         await this.tokenStore.setToken("cpereira@gmail.com", "Carlos");
     }
 
-    public onLogIn = () => {
+    public onShowLogIn = () => {
         this.setShowLoginMenu(!this.getShowLoginMenu());
+    }
+
+    public onLogin = async (email: string, password: string) => {
+        if (email && password) {
+            await this.logIn(email, password);
+            if (this.tokenStore.getAccessToken()) {
+                this.setIsUserLogIn(true);
+                this.setShowLoginMenu(false);
+            }
+        }
     }
 
     public render(): React.ReactNode {
@@ -70,11 +99,16 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
             <>
                 <Header
                     isUserLogin={this.getIsUserLogIn()}
-                    onLogIn={this.onLogIn}
+                    onLogIn={this.onShowLogIn}
                 />
-                <LoginViewModel
+                <LoginView
                     showMenu={this.getShowLoginMenu()}
-                    setShowMenu={this.setShowLoginMenu} />
+                    setShowMenu={this.setShowLoginMenu}
+                    onLogin={this.onLogin}
+                    setPassword={this.setPassword}
+                    setEmail={this.setEmail}
+                    getPassword={this.getPassword()}
+                    getEmail={this.getEmail()}/>
             </>
         );
     }

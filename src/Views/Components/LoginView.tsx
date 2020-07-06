@@ -4,15 +4,20 @@ import { TokenStore }           from "../../Store/TokenStore";
 import { observer, inject }     from "mobx-react";
 import {
     Divider,
-    Drawer }                   from "@material-ui/core";
+    Drawer }                    from "@material-ui/core";
 import Input                    from "./Forms/Input";
-
+import ButtonC                  from "./Forms/ButtonC";
 
 interface LoginViewProps {
     UserStore?: UserStore;
     TokenStore?: TokenStore;
     showMenu: boolean;
     setShowMenu: (value: boolean) => void;
+    onLogin: (email: string, password: string) => void;
+    setPassword: (value: string) => void;
+    setEmail: (value: string) => void;
+    getPassword: string;
+    getEmail: string;
 }
 
 @inject(UserStore.NAME_STORE, TokenStore.NAME_STORE)
@@ -29,6 +34,11 @@ class LoginView extends React.Component<LoginViewProps, any> {
     }
 
     public content = () => {
+        const { getEmail, getPassword,
+                setEmail, setPassword,
+                setShowMenu,
+                onLogin } = this.props;
+
         return (
             <div
                 className={`content`}
@@ -37,16 +47,26 @@ class LoginView extends React.Component<LoginViewProps, any> {
                     <Input
                         inputType={"text"}
                         label={"Email"}
-                        className={"login-input"}
+                        className={"login-input input-component"}
                         id={"login-email"}
+                        value={getEmail}
+                        setValue={setEmail}
                     />
                     <Input
                         inputType={"password"}
                         label={"Password"}
-                        className={"login-input"}
+                        className={"login-input input-component"}
                         id={"login-password"}
+                        value={getPassword}
+                        setValue={setPassword}
                     />
                 <Divider />
+                <ButtonC label={"Login"} className={"btn btn-blue label-primary mr-4 mt-4"} onClick={() => {
+                    onLogin(getEmail, getPassword);
+                }}/>
+                <ButtonC label={"Cancel"} className={"btn btn-red label-primary mt-4"} onClick={() => {
+                            setShowMenu(false);
+                }}/>
             </div>
         );
     }
