@@ -51,6 +51,8 @@ export class TokenStore extends BaseStore {
 
     public setToken = async (email: string, password: string) => {
         const response = await this.getAjaxService().getToken(email, password);
-        this.setAccessToken(response);
+        if (response) {
+            this.setAccessToken(response);
+        }
     }
 }

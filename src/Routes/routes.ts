@@ -1,5 +1,6 @@
-import { roles } from "../config/roles";
-import HomeViewModel from "../ViewModel/HomeViewModel";
+import { roles }            from "../config/roles";
+import HomeViewModel        from "../ViewModel/HomeViewModel";
+import ProfileViewModel     from "../ViewModel/ProfileViewModel";
 
 interface Route {
     component: React.ComponentType;
@@ -19,6 +20,16 @@ const routesList: Route[] = [
             currentRole: roles.EMPLOYEE,
         },
         path     : "/"
+    },
+    {
+        component: ProfileViewModel,
+        exact    : true,
+        name     : "menu",
+        options: {
+            bodyClass: "body-background",
+            currentRole: roles.EMPLOYEE,
+        },
+        path     : "/menu"
     },
 ];
 

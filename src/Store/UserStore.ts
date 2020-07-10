@@ -2,10 +2,10 @@ import BaseStore                from "./BaseStore";
 import { persist }              from "mobx-persist";
 import User                     from "../Models/User/User";
 import { observable, action }   from "mobx";
-import { serializable, date }   from "serializr";
-import moment                   from "moment";
+import { serializable, date, deserialize }   from "serializr";
 import Container                from "typedi";
 import AxiosService             from "src/Service/AxiosService";
+import moment                   from "moment";
 
 export class UserStore extends BaseStore {
     public static readonly NAME_STORE: string = "UserStore";
@@ -62,18 +62,18 @@ export class UserStore extends BaseStore {
         return this;
     }
 
-    public async getUser(): Promise<User | undefined> {
-        const now = moment().add(8, "h");
+    public getUser(): User | undefined {
+        return this.user;
+    }
 
-        // if (!this.getPreviousAccess() || now.isBefore(moment(this.getPreviousAccess()))) {
-        //     // Call Axios
-        // }
+    public async getUserMeApi(): Promise<User | undefined> {
 
-//         const response = await this.getAjaxService().getUser();
-// console.log(response);
-        // if (response.status === 200) {
-        //     this.setToken(response.data);
-        // }
+        const response = await this.getAjaxService().getUserMe();
+debugger;
+        const user: User = deserialize(User, response);
+
+        this.setUser(user)
+        .setPreviousAccess(moment().toDate());
 
         return this.user;
     }

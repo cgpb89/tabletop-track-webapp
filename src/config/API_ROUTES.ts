@@ -1,5 +1,6 @@
 export const prefix = "http://localhost:3005";
 
 export default {
-    POST_TOKEN   : `${prefix}/user/login`
+    GET_USER_ME     : `${prefix}/user/user/me`,
+    POST_TOKEN      : `${prefix}/user/login`,
 };

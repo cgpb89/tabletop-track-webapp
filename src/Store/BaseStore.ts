@@ -1,6 +1,5 @@
 
 import moment               from "moment";
-import { Error }            from "tslint/lib/error";
 import { ApplicationStore } from "./ApplicationStore";
 
 export default abstract class BaseStore {

@@ -1,27 +1,6 @@
 .main-content {
-  height: 95vh;
-  background-image: linear-gradient(
-      to right bottom,
-      rgba($primary-color-light, 0.8),
-      rgba($primary-color-dark, 0.8)
-    ),
-    url(../../images/Board-Game-CollectionLibrary.jpg);
-  background-size: cover;
+  background-color: $base-color;
   /* whatever the view port it will fit the element*/
   background-position: top;
   position: relative;
-
-  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
-    only screen and (min-width: 125em) {
-    background-image: linear-gradient(
-        to right bottom,
-        rgba($primary-color-light, 0.8),
-        rgba($primary-color-dark, 0.8)
-      ),
-      url(../../images/Board-Game-CollectionLibrary.jpg);
-  }
-
-  @include respond(phone) {
-
-  }
 }

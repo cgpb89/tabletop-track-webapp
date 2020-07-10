@@ -4,14 +4,18 @@ import { TokenStore }               from "../Store/TokenStore";
 import Header                       from "../Layout/HeaderView";
 import { inject, observer }         from "mobx-react";
 import LoginView                    from "../Views/Components/LoginView";
+import Notification                 from "../Views/Components/Notifications/Notification";
 import { observable } from "mobx";
+import { MessagesStore } from "../Store/MessagesStore";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
-interface HeaderViewModelProps {
+interface HeaderViewModelProps extends RouteComponentProps<any> {
     UserStore?: UserStore;
     TokenStore?: TokenStore;
+    MessagesStore?: MessagesStore;
 }
 
-@inject(UserStore.NAME_STORE, TokenStore.NAME_STORE)
+@inject(UserStore.NAME_STORE, TokenStore.NAME_STORE, MessagesStore.NAME_STORE)
 @observer
 class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
 
@@ -72,12 +76,16 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
         return this.props.UserStore as UserStore;
     }
 
+    get messagesStore(): MessagesStore {
+        return this.props.MessagesStore as MessagesStore;
+    }
+
     get tokenStore(): TokenStore {
         return this.props.TokenStore as TokenStore;
     }
 
     public logIn = async (email: string, password: string) => {
-        await this.tokenStore.setToken("cpereira@gmail.com", "Carlos");
+        await this.tokenStore.setToken(email, password);
     }
 
     public onShowLogIn = () => {
@@ -87,19 +95,27 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
     public onLogin = async (email: string, password: string) => {
         if (email && password) {
             await this.logIn(email, password);
+
             if (this.tokenStore.getAccessToken()) {
                 this.setIsUserLogIn(true);
                 this.setShowLoginMenu(false);
+                this.userStore.getUserMeApi();
+                this.props.history.push("/menu");
+            } else {
+                this.messagesStore.setMessage("User and Password do not match!!!");
+                this.forceUpdate();
             }
         }
     }
 
     public render(): React.ReactNode {
+
         return (
             <>
                 <Header
                     isUserLogin={this.getIsUserLogIn()}
                     onLogIn={this.onShowLogIn}
+                    userName={this.userStore.getUser() ? this.userStore.getUser()!.getFirstName() : undefined}
                 />
                 <LoginView
                     showMenu={this.getShowLoginMenu()}
@@ -108,11 +124,17 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
                     setPassword={this.setPassword}
                     setEmail={this.setEmail}
                     getPassword={this.getPassword()}
-                    getEmail={this.getEmail()}/>
+                    getEmail={this.getEmail()} />
+                {this.messagesStore.getMessage() ?
+                    <Notification
+                        error
+                        text={this.messagesStore.getMessage()} />
+                    : <></>}
+
             </>
         );
     }
 
 }
 
-export default HeaderViewModel;
+export default withRouter(HeaderViewModel);

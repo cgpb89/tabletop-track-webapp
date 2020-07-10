@@ -1,7 +1,7 @@
 import { Service } from "typedi";
-import LoadStore from "./LoadStore"
+import LoadStore from "./LoadStore";
 import BaseStore from "./BaseStore";
-import { create } from 'mobx-persist';
+import { create } from "mobx-persist";
 
 interface ObjectType<T> {
     new(applicationStore: ApplicationStore): T;

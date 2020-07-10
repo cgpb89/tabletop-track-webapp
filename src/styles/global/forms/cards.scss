@@ -1,0 +1,25 @@
+.cards-container {
+    height: 595px;
+
+    @include respond(phone) {
+        height: 195px;
+    }
+
+    .cards-media {
+        // background-position: -255px 20px;
+        height: 445px;
+
+        @include respond(phone) {
+            height: 145px;
+        }
+
+        &.position-img {
+            background-position: -545px 0px;
+
+            @include respond(phone) {
+                background-position: 0px 0px;
+            }
+        }
+    }
+}
+

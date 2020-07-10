@@ -6,6 +6,14 @@
   text-transform: uppercase;
 }
 
+.btn-circle {
+  color: $white-color;
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 25px;
+  text-transform: uppercase;
+}
+
 .btn-green {
   @include button-bg($secondary-btn-color);
 }
