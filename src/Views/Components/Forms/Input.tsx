@@ -34,7 +34,7 @@ class Input extends React.Component<any, any> {
             <TextField
                 className={className}
                 type={inputType}
-                id="outlined-basic"
+                id={id}
                 label={label}
                 variant={variant ? variant : "outlined"}
                 value={value}

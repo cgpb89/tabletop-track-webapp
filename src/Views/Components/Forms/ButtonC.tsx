@@ -1,20 +1,20 @@
 
 
 import React from "react";
-import Button from "@material-ui/core/Button";
-
 
 interface ButtonProps {
-    label: string;
+    label?: string;
     variant?: "text" | "outlined" | "contained";
     className?: string;
-    id: string;
+    id?: string;
     color?: "default" | "inherit" | "primary" | "secondary";
     disabled?: boolean;
-    onClick: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+    iconClass?: string;
+    iconPhrase?: boolean;
 }
 
-class ButtonC extends React.Component<any, any> {
+class ButtonC extends React.Component<ButtonProps, any> {
 
 
     public render() {
@@ -22,18 +22,27 @@ class ButtonC extends React.Component<any, any> {
             className,
             id,
             label,
-            variant,
             color,
             disabled,
-            onClick
+            onClick,
+            iconClass,
+            iconPhrase
         } = this.props;
+
+
+
+        console.log();
         return (
             <button
+            id={id}
             className={className}
                 color={color ? color : "primary"}
                 disabled={disabled}
                 onClick={onClick}>
-                {label}
+                {iconClass ?
+                    (iconPhrase ?
+                        <span className={`${iconClass}`}>{label}</span> : <span className={`${iconClass}`}></span>)
+                    : label}
             </button>
         );
     }

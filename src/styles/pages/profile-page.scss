@@ -1,0 +1,13 @@
+.card-container {
+    display: block;
+    margin: 20px 10px;
+    width: 100%;
+
+    @include respond(phone) {
+        margin: 8px 0px;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+}

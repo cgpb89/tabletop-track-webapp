@@ -1,6 +1,5 @@
 import React                    from "react";
 import { Container }            from "@material-ui/core";
-import { Row }                  from "reactstrap";
 import { inject }               from "mobx-react";
 import { UserStore }            from "../Store/UserStore";
 import { TokenStore }           from "../Store/TokenStore";
@@ -25,8 +24,9 @@ class HomeViewModel extends React.Component<any, any> {
 
     public render = () => {
         return (
-            <Container className={`wrap-container`}>
-                <div className={`main-content`}>
+            <Container className={`wrap-container main-content`}>
+                <div className={``}>
+                    Home
                 </div>
             </Container>
         );

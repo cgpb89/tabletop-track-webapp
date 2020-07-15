@@ -1,6 +1,5 @@
 import React                                                from "react";
 import { Container }    from "@material-ui/core";
-import MenuIcon         from "@material-ui/icons/Menu";
 import { Row, Col }          from "reactstrap";
 
 class Footer extends React.Component<any, any> {

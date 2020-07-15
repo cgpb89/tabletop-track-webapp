@@ -9,15 +9,23 @@ body {
     font-family: 'Josefin Sans', sans-serif;
     min-height: 100vh;
 
-    .wrap-container {
-        background-color: $white-color;
-        min-height: 100vh;
-        padding: 85px 40px;
+    .main-content {
+        background-color: $base-color;
+        /* whatever the view port it will fit the element*/
+        background-position: top;
+        position: relative;
 
-        @include respond(phone) {
-            padding: 70px 15px;
+        &.wrap-container {
+            min-height: 100vh;
+            padding: 85px 40px;
+    
+            @include respond(phone) {
+                padding: 70px 15px;
+            }
         }
-    }
+      }
+      
+
 
     input{
         margin: 20px 0;
