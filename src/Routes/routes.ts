@@ -1,6 +1,9 @@
 import { roles }            from "../config/roles";
 import HomeViewModel        from "../ViewModel/HomeViewModel";
 import ProfileViewModel     from "../ViewModel/ProfileViewModel";
+import GamesViewModel       from "../ViewModel/GamesViewModel";
+import GroupsViewModel      from "../ViewModel/GroupsViewModel";
+import StatsViewModel       from "../ViewModel/StatsViewModel";
 
 interface Route {
     component: React.ComponentType;
@@ -17,7 +20,7 @@ const routesList: Route[] = [
         name     : "home",
         options: {
             bodyClass: "body-background",
-            currentRole: roles.EMPLOYEE,
+            currentRole: roles.USER,
         },
         path     : "/"
     },
@@ -27,9 +30,39 @@ const routesList: Route[] = [
         name     : "menu",
         options: {
             bodyClass: "body-background",
-            currentRole: roles.EMPLOYEE,
+            currentRole: roles.USER,
         },
         path     : "/menu"
+    },
+    {
+        component: GamesViewModel,
+        exact    : true,
+        name     : "mygames",
+        options: {
+            bodyClass: "body-background",
+            currentRole: roles.USER,
+        },
+        path     : "/mygames"
+    },
+    {
+        component: GroupsViewModel,
+        exact    : true,
+        name     : "groups",
+        options: {
+            bodyClass: "body-background",
+            currentRole: roles.USER,
+        },
+        path     : "/groups"
+    },
+    {
+        component: StatsViewModel,
+        exact    : true,
+        name     : "stats",
+        options: {
+            bodyClass: "body-background",
+            currentRole: roles.USER,
+        },
+        path     : "/stats"
     },
 ];
 

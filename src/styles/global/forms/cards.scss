@@ -1,5 +1,5 @@
 .cards-container {
-    height: 595px;
+    height: 555px;
 
     @include respond(phone) {
         height: 195px;
@@ -20,6 +20,10 @@
                 background-position: 0px 0px;
             }
         }
+    }
+
+    button:focus {
+        outline: none;
     }
 }
 

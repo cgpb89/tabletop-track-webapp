@@ -6,4 +6,8 @@
     @include respond(phone) {
         margin: 8px 0px;
     }
+
+    a:hover {
+        text-decoration: none;
+    }
 }

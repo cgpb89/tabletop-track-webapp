@@ -28,7 +28,7 @@ class User {
         this.lastName = "";
         this.email = "";
         this.isAdmin = false;
-        this.role  = roles.EMPLOYEE;
+        this.role  = roles.USER;
         this.image = "";
         this.fullName = "";
     }

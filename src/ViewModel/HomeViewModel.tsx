@@ -24,8 +24,9 @@ class HomeViewModel extends React.Component<any, any> {
 
     public render = () => {
         return (
-            <Container className={`wrap-container`}>
-                <div className={`main-content`}>
+            <Container className={`wrap-container main-content`}>
+                <div className={``}>
+                    Home
                 </div>
             </Container>
         );
