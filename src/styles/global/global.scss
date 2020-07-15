@@ -1,0 +1,34 @@
+body {
+    background-image:
+      url(../../images/GameCollection.jpg);
+    background-size: cover;
+    /* whatever the view port it will fit the element*/
+    background-position: top;
+    position: relative;
+
+    font-family: 'Josefin Sans', sans-serif;
+    min-height: 100vh;
+
+    .main-content {
+        background-color: $base-color;
+        /* whatever the view port it will fit the element*/
+        background-position: top;
+        position: relative;
+
+        &.wrap-container {
+            min-height: 100vh;
+            padding: 85px 40px;
+    
+            @include respond(phone) {
+                padding: 70px 15px;
+            }
+        }
+      }
+      
+
+
+    input{
+        margin: 20px 0;
+        width: 300px;
+    }
+}

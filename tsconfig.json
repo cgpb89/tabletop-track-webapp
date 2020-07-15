@@ -1,33 +1,39 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "esModuleInterop": true,
+    "allowJs": true,
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
+    "jsx": "react",
     "lib": [
       "dom",
-      "dom.iterable",
+      "es2015",
       "es6",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "outDir": "build/dist",
     "rootDir": "src",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "ES5",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
-  "include": [
-    "src"
+  "types": [
+    "reflect-metadata"
   ],
   "exclude": [
     "acceptance-tests",
@@ -38,5 +44,8 @@
     "scripts",
     "src/setupTests.ts",
     "webpack"
+  ],
+  "include": [
+    "src"
   ]
 }

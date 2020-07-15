@@ -1,0 +1,36 @@
+// utils
+@import "./utils/mixin";
+
+@import "../assets/fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf";
+@import "../assets/fonts/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf";
+
+// Variables
+@import "./global/variables";
+
+// Layout
+@import "./global/global";
+@import "./global/header";
+@import "./global/footer";
+
+// Colors
+@import "./global/colors";
+
+// Login
+@import "./login/login";
+
+// Forms
+@import "./global/forms/input";
+@import "./global/forms/cards";
+
+// fonts
+@import "./global/fonts";
+
+// buttons
+@import "./global/forms/button";
+
+// Icon
+@import "./global/icon";
+
+// 
+@import "./pages/home-page";
+@import "./pages/profile-page";

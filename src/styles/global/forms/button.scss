@@ -1,0 +1,35 @@
+.btn {
+  color: $white-color;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.btn-circle {
+  color: $white-color;
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 25px;
+  text-transform: uppercase;
+}
+
+.btn-green {
+  @include button-bg($secondary-btn-color);
+}
+
+.btn-blue {
+  @include button-bg($primary-btn-color);
+}
+
+.btn-yellow {
+  @include button-bg($terciary-btn-color);
+}
+
+.btn-red {
+  @include button-bg($quaternary-btn-color);
+}
+
+.btn-white-outline {
+  @include button-outline(transparent, $white-color);
+}
