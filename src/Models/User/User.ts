@@ -5,6 +5,9 @@ import { serializable } from "serializr";
 class User {
     @observable
     @serializable
+    private _id: string;
+    @observable
+    @serializable
     private firstName: string;
     @observable
     @serializable
@@ -28,9 +31,19 @@ class User {
         this.lastName = "";
         this.email = "";
         this.isAdmin = false;
-        this.role  = roles.USER;
+        this.role  = "";
         this.image = "";
         this.fullName = "";
+        this._id = "";
+    }
+
+
+    public get_id(): string {
+        return this._id;
+    }
+
+    public set_id(_id: string): void {
+        this._id = _id;
     }
 
     public getFirstName(): string {
