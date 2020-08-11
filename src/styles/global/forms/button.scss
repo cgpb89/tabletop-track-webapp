@@ -20,6 +20,11 @@
 
 .btn-blue {
   @include button-bg($primary-btn-color);
+
+  &.large {
+    padding: 15.5px 0;
+    width: 100%;
+  }
 }
 
 .btn-yellow {

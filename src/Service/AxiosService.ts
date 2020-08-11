@@ -81,13 +81,31 @@ export default class AxiosService {
 
     public getUserMe = async () => {
         try {
-            // const response = await this._axios.get(API_ROUTES.GET_USER_ME);
-
             return this._axios.get(API_ROUTES.GET_USER_ME)
             .then(function (response) {
                 if (response.status === 200) {
                     return response.data;
                 }
+            })
+            .catch(function (error) {
+                console.log(error);
+                return error;
+            });
+        } catch (error) {
+            console.log(error.message);
+            return error.messge;
+        }
+    }
+
+    public getUsersByFilter = async (userFilter: string) => {
+        try {
+
+            return this._axios.get(`${API_ROUTES.SEARCH_USER_BY_FILTER}${userFilter}`)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.data;
+                }
+                return [];
             })
             .catch(function (error) {
                 console.log(error);

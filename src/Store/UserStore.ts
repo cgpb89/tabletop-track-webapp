@@ -69,12 +69,23 @@ export class UserStore extends BaseStore {
     public async getUserMeApi(): Promise<User | undefined> {
 
         const response = await this.getAjaxService().getUserMe();
-debugger;
+
         const user: User = deserialize(User, response);
 
         this.setUser(user)
         .setPreviousAccess(moment().toDate());
 
         return this.user;
+    }
+
+    public async getUsersByFilter(filter: string): Promise<User[] | []>  {
+        const response = await this.getAjaxService().getUsersByFilter(filter);
+        const users: User[] = [];
+
+        for (const user of response) {
+            users.push(deserialize(User, user));
+        }
+
+        return users;
     }
 }
