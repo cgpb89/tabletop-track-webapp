@@ -1,23 +1,26 @@
 
-import React                    from "react";
-import SearcherUserView         from "../Views/Components/SearcherView";
-import { inject, observer }     from "mobx-react";
-import { UserStore }            from "../Store/UserStore";
-import { observable }           from "mobx";
-import User                     from "../Models/User/User";
+import React from "react";
+import { inject, observer } from "mobx-react";
+import { UserStore } from "../Store/UserStore";
+import { observable } from "mobx";
+import User from "../Models/User/User";
+import AutoComplete from "../Views/Components/Forms/AutoComplete";
 
 interface SearcherUserViewModelProps {
-    UserStore?: UserStore;
+  UserStore?: UserStore;
+  setUserSelected: (value: User) => void;
+  getUserSelected: User | undefined;
+  addItem: () => void;
+  getUserArray: User[];
 }
 
 @inject(UserStore.NAME_STORE)
 @observer
 class SearcherUserViewModel extends React.Component<SearcherUserViewModelProps, any> {
 
-    private searchTimer: NodeJS.Timeout | undefined;
+  private searchTimer: NodeJS.Timeout | undefined;
 
-  @observable
-  private userSelected: User = new User();
+  private resetInputSearch: boolean = false;
 
   @observable
   private suggestions: User[] = [];
@@ -25,12 +28,12 @@ class SearcherUserViewModel extends React.Component<SearcherUserViewModelProps, 
   @observable
   private suggestionTyped: string = "";
 
-  public getUserSelected(): User {
-    return this.userSelected;
+  public getResetInputSearch(): boolean {
+    return this.resetInputSearch;
   }
 
-  public setUserSelected(userSelected: User): void {
-    this.userSelected = userSelected;
+  public setResetInputSearch(resetInputSearch: boolean): void {
+    this.resetInputSearch = resetInputSearch;
   }
 
   public getSuggestionTyped(): string {
@@ -49,8 +52,10 @@ class SearcherUserViewModel extends React.Component<SearcherUserViewModelProps, 
   // based on the clicked suggestion. Teach Autosuggest how to calculate the
   // input value for every given suggestion.
   public getSuggestionValue = (suggestion: User) => {
-    this.setUserSelected(suggestion);
-    return suggestion.getFullName();
+    const { setUserSelected, addItem } = this.props;
+    setUserSelected(suggestion);
+    addItem();
+    return "";
   }
 
   public renderSuggestion = (suggestion: User) => (
@@ -72,9 +77,19 @@ class SearcherUserViewModel extends React.Component<SearcherUserViewModelProps, 
   }
 
   private findUsers = async () => {
-      if (this.getSuggestionTyped().length > 0) {
-        this.suggestions = await this.userStore.getUsersByFilter(this.getSuggestionTyped());
-      }
+    const { getUserArray } = this.props;
+
+    if (this.getSuggestionTyped().length > 0) {
+      let users = await this.userStore.getUsersByFilter(this.getSuggestionTyped());
+
+      const usersIds = getUserArray.map(item => item.get_id());
+
+      users = users.filter((item1: User, index: number) => {
+        return !usersIds.includes(item1.get_id());
+      });
+
+      this.suggestions = users;
+    }
   }
 
   public onChange = (event: any, { newValue }: any) => {
@@ -86,19 +101,20 @@ class SearcherUserViewModel extends React.Component<SearcherUserViewModelProps, 
     this.suggestions = [];
   };
 
-    public render(): React.ReactNode {
-        return (
-            <SearcherUserView
-            suggestions={this.suggestions}
-            onChange={this.onChange}
-            getSuggestionTyped={this.getSuggestionTyped()}
-            searchUser={this.searchUser}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={this.getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            />
-        );
-    }
+  public render(): React.ReactNode {
+    return (
+      <AutoComplete
+        suggestions={this.suggestions}
+        onChange={this.onChange}
+        getSuggestionTyped={this.getSuggestionTyped()}
+        searchItem={this.searchUser}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={this.getSuggestionValue}
+        renderSuggestion={this.renderSuggestion}
+      />
+    );
+
+  }
 }
 
 export default SearcherUserViewModel;

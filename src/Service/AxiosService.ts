@@ -117,4 +117,19 @@ export default class AxiosService {
         }
     }
 
+    public createGroup = async (group: any) => {
+        const response = await MethodsAvoidCORS.axiosPost(API_ROUTES.POST_GROUP, group);
+        try {
+            debugger;
+            if (response.status) {
+                return true;
+            } else {
+                return false;
+            }   // throw a text
+        } catch (error) {
+            console.log(error.message);
+            return error.messge;
+        }
+    }
+
 }

@@ -9,12 +9,13 @@ interface CardContainerProps {
     legend?: string;
     classMedia?: string;
     actions?: boolean;
+    content?: React.ReactNode;
 }
 class Cards extends React.Component<CardContainerProps, any> {
 
 
     public render() {
-        const { image, mainTitle, legend, classMedia, actions } = this.props;
+        const { image, mainTitle, legend, classMedia, actions, content } = this.props;
 
         return (
             <Card className={`cards-container`} onClick={() => {
@@ -34,6 +35,9 @@ class Cards extends React.Component<CardContainerProps, any> {
                             <span className={`paragraph-primary secondary-color-dark`}>
                                 {legend}
                             </span>
+                        </div>
+                        <div>
+                            {content}
                         </div>
                     </CardContent>
                 </CardActionArea>
