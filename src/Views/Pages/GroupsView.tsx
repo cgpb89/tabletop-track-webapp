@@ -1,11 +1,13 @@
-import React from "react";
-import SearcherViewModel from "../../ViewModel/SearcherUserViewModel";
-import { observer } from "mobx-react";
-import Input from "../Components/Forms/Input";
-import { Container, Chip } from "@material-ui/core";
-import ButtonC from "../Components/Forms/ButtonC";
-import FaceIcon from "@material-ui/icons/Face";
-import User from "../../Models/User/User";
+import React                from "react";
+import SearcherViewModel    from "../../ViewModel/SearcherUserViewModel";
+import { observer }         from "mobx-react";
+import Input                from "../Components/Forms/Input";
+import { Container, Chip }  from "@material-ui/core";
+import ButtonC              from "../Components/Forms/ButtonC";
+import FaceIcon             from "@material-ui/icons/Face";
+import User                 from "../../Models/User/User";
+import Group                from "../../Models/Group";
+import GroupList        from "../Components/Group/GroupList";
 
 interface GroupsViewProps {
     getGroupName: string;
@@ -16,6 +18,7 @@ interface GroupsViewProps {
     getUserSelected: User | undefined;
     deleteUser: (user: User) => void;
     onCreateGroup: () => void;
+    groupList: Group[];
 }
 
 @observer
@@ -31,7 +34,7 @@ class GroupsView extends React.Component<GroupsViewProps, any> {
                     variant="outlined"
                     size="medium"
                     icon={<FaceIcon />}
-                    label={this.test(item)}
+                    label={this.returnFullName(item)}
                     onDelete={() => {
                         deleteUser(item);
                     }}
@@ -42,7 +45,7 @@ class GroupsView extends React.Component<GroupsViewProps, any> {
 
     }
 
-    private test = (item: User): React.ReactNode => {
+    private returnFullName = (item: User): React.ReactNode => {
         return (
             <span>{`${item.getFullName()}`}</span>
         );
@@ -50,7 +53,7 @@ class GroupsView extends React.Component<GroupsViewProps, any> {
 
     public render(): React.ReactNode {
         const { getGroupName, setGroupName, setUserSelected, addUser, onCreateGroup,
-            getUserSelected, getUsersSelected } = this.props;
+            getUserSelected, getUsersSelected, groupList } = this.props;
         return (
             <Container className={`wrap-container main-content group-page`}>
                 <div className={`row`}>
@@ -90,11 +93,19 @@ class GroupsView extends React.Component<GroupsViewProps, any> {
                         </div> : <></>
                 }
                 <div className={`row`}>
-                    <div className={`col-2 create-group`}>
+                    <div className={`col-12 create-group`}>
                         <ButtonC
                             label={"Create Group"}
                             className={"btn btn-blue"}
                             onClick={onCreateGroup}
+                        />
+                    </div>
+                </div>
+
+                <div className={`row`}>
+                    <div className={`col-12`}>
+                        <GroupList
+                            groupList={groupList}
                         />
                     </div>
                 </div>

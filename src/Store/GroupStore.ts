@@ -1,11 +1,11 @@
-import BaseStore                from "./BaseStore";
-import { persist }              from "mobx-persist";
-import User                     from "../Models/User/User";
-import { observable, action }   from "mobx";
-import { serializable, date, deserialize, object }   from "serializr";
-import Container                from "typedi";
-import AxiosService             from "../Service/AxiosService";
-import                          Group from "../Models/Group";
+import BaseStore from "./BaseStore";
+import { persist } from "mobx-persist";
+import User from "../Models/User/User";
+import { observable, action } from "mobx";
+import { serializable, date, deserialize, object, list } from "serializr";
+import Container from "typedi";
+import AxiosService from "../Service/AxiosService";
+import Group from "../Models/Group";
 
 export class GroupStore extends BaseStore {
     public static readonly NAME_STORE: string = "GroupStore";
@@ -17,14 +17,18 @@ export class GroupStore extends BaseStore {
     @serializable(date())
     private previousCallAccess: Date;
 
-    @persist("object")
     @serializable(object(Group))
     private group: Group;
+
+    @serializable(list(object(Group)))
+    @observable
+    private groupList: Group[];
 
     public constructor(props: any) {
         super(props);
         this.previousCallAccess = new Date();
         this.group = new Group();
+        this.groupList = [];
     }
 
     public getAjaxService(): AxiosService {
@@ -64,12 +68,31 @@ export class GroupStore extends BaseStore {
         this.group = group;
     }
 
-    public async createGroup(group: Group): Promise<string>  {
+    public getGroupList(): Group[] {
+        return this.groupList;
+    }
+
+    public setGroupList(groupList: Group[]): void {
+        this.groupList = groupList;
+    }
+
+    public async createGroup(group: Group): Promise<boolean> {
         const groupObj = this.serialize(group);
-console.log("groupObj", groupObj);
-       const response = await this.getAjaxService().createGroup(groupObj);
-       console.log(response);
-        return "";
+        const response = await this.getAjaxService().createGroup(groupObj);
+        return response;
+    }
+
+    public async listGroup(userId: string): Promise<Group[]> {
+        const response = await this.getAjaxService().listGroup(userId);
+
+        if (response) {
+            const result: Group[] = [];
+            response.forEach((element: Group) => {
+                result.push(deserialize(Group, element));
+            });
+            return result;
+        }
+        return [];
     }
 
     private serialize = (group: Group) => {

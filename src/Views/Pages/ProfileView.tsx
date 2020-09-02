@@ -25,7 +25,8 @@ class ProfileView extends React.Component<ProfileViewProps, any> {
                                 <Cards
                                     mainTitle={"Games"}
                                     image={GAMES}
-                                    legend={"Check your games"} />
+                                    legend={"Check your games"} 
+                                    cardMedia/>
                             </Link>
                         </div>
                     </div>
@@ -35,7 +36,8 @@ class ProfileView extends React.Component<ProfileViewProps, any> {
                                 <Cards
                                     mainTitle={"Groups"}
                                     image={GROUPS}
-                                    legend={"See your groups"} />
+                                    legend={"See your groups"} 
+                                    cardMedia/>
                             </Link>
                         </div>
                     </div>
@@ -46,7 +48,8 @@ class ProfileView extends React.Component<ProfileViewProps, any> {
                                     classMedia={"position-img"}
                                     mainTitle={"Stats"}
                                     image={STATS}
-                                    legend={"Check your statistics"} />
+                                    legend={"Check your statistics"}
+                                    cardMedia/>
                             </Link>
                         </div>
                     </div>

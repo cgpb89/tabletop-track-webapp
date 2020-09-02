@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Button } from "@material-ui/core";
+import React    from "react";
+import { Card, CardActionArea, CardMedia, CardContent, CardActions, Button } from "@material-ui/core";
 
 const DEFAULT = require("../../../images/meeple2.jpg");
 
@@ -10,23 +10,25 @@ interface CardContainerProps {
     classMedia?: string;
     actions?: boolean;
     content?: React.ReactNode;
+    cardMedia?: boolean;
 }
 class Cards extends React.Component<CardContainerProps, any> {
 
 
     public render() {
-        const { image, mainTitle, legend, classMedia, actions, content } = this.props;
+        const { image, mainTitle, legend, classMedia, actions, content, cardMedia } = this.props;
 
         return (
             <Card className={`cards-container`} onClick={() => {
                 console.log("Entra");
             }}>
                 <CardActionArea >
-                    <CardMedia
-                    className={`cards-media ${classMedia}`}
+                    {cardMedia ? <CardMedia
+                        className={`cards-media ${classMedia}`}
                         image={image ? image : DEFAULT}
                         title="Contemplative Reptile"
-                    />
+                    /> : <></>}
+
                     <CardContent>
                         <span className={`headlines-primary`}>
                             {mainTitle}
