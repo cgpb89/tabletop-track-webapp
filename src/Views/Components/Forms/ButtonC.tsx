@@ -41,7 +41,7 @@ class ButtonC extends React.Component<ButtonProps, any> {
                 onClick={onClick}>
                 {iconClass ?
                     (iconPhrase ?
-                        <span className={`${iconClass}`}>{label}</span> : <span className={`${iconClass}`}></span>)
+                        <span><span className={`${iconClass}`}></span> <span>{label}</span></span> : <span className={`${iconClass}`}></span>)
                     : label}
             </button>
         );

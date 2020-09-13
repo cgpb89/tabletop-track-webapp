@@ -13,6 +13,9 @@ export class MessagesStore extends BaseStore {
     @observable
     private message: string | undefined;
 
+    @observable
+    private type: boolean | undefined;
+
     protected init() {
         this.needPersistData = true;
     }
@@ -41,5 +44,13 @@ export class MessagesStore extends BaseStore {
 
     public setMessage = (errorMessage: string | undefined): void => {
         this.message = errorMessage;
+    }
+
+    public getType = (): boolean | undefined => {
+        return this.type;
+    }
+
+    public setType = (type: boolean | undefined): void => {
+        this.type = type;
     }
 }

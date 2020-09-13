@@ -23,11 +23,13 @@ class Notification extends React.Component<NotificationProps, any> {
         // setTimeout(function() {
         //     console.log("Set");
             this.messagesStore.setMessage(undefined);
+            this.messagesStore.setType(undefined);
         // }, 3000);
     }
 
     public render() {
         const { text, error } = this.props;
+
 
         toast(text, {
             autoClose: 5000,
@@ -44,7 +46,7 @@ class Notification extends React.Component<NotificationProps, any> {
 
         return (
             <div>
-                <ToastContainer />
+                <ToastContainer limit={2}/>
             </div>
         );
     }

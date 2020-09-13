@@ -6,13 +6,16 @@ import User             from "../Models/User/User";
 import { GroupStore }   from "../Store/GroupStore";
 import Group            from "../Models/Group";
 import { UserStore }    from "../Store/UserStore";
+import { MessagesStore } from "../Store/MessagesStore";
+import Notification      from "../Views/Components/Notifications/Notification";
 
 interface GroupsViewModelProps {
     GroupStore?: GroupStore;
     UserStore?: UserStore;
+    MessagesStore?: MessagesStore;
 }
 
-@inject(GroupStore.NAME_STORE, UserStore.NAME_STORE)
+@inject(GroupStore.NAME_STORE, UserStore.NAME_STORE, MessagesStore.NAME_STORE)
 @observer
 class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
     @observable
@@ -26,6 +29,11 @@ class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
 
     @observable
     private group: Group = new Group();
+
+    constructor(props: GroupsViewModelProps) {
+        super(props);
+        this.returnListGroup();
+    }
 
     public getGroup(): Group {
         return this.group;
@@ -73,6 +81,10 @@ class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
         return this.props.UserStore as UserStore;
     }
 
+    get messagesStore(): MessagesStore {
+        return this.props.MessagesStore as MessagesStore;
+    }
+
     public addUser = () => {
         this.addUsersSelected(this.getUserSelected());
         this.setUserSelected(undefined);
@@ -85,28 +97,66 @@ class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
         this.setUsersSelected(newUser);
     }
 
-    public onCreateGroup = () => {
+    public onCreateGroup = async () => {
         const adminUser = this.userStore.getUser() ? [this.userStore.getUser() as User] : [];
 
         this.getGroup().setName(this.getGroupName());
         this.getGroup().setPlayers(this.getUsersSelected() ? this.getUsersSelected() as User[] : []);
         this.getGroup().setAdminUser(adminUser);
 
-        this.groupStore.createGroup(this.getGroup());
+        const response = await this.groupStore.createGroup(this.getGroup());
+        if (response) {
+            this.messagesStore.setMessage("Group created successfully!!!");
+            this.messagesStore.setType(false);
+            this.returnListGroup();
+        } else {
+            this.messagesStore.setType(true);
+            this.messagesStore.setMessage("An error occur while creating a group");
+        }
+        this.groupStore.listGroup(this.userStore.getUser()!.get_id());
+    }
+
+    public returnListGroup = () => {
+        setTimeout(async () => {
+            const response = await this.groupStore.listGroup(this.userStore.getUser()!.get_id());
+            this.groupStore.setGroupList(response);
+        }, 1000);
+    }
+
+    public deleteGroup = async (groupId: string) => {
+        const user = this.userStore.getUser();
+        if (user) {
+            const response = await this.groupStore.deleteGroup(user.get_id(), groupId);
+            if (typeof response === "string") {
+                this.messagesStore.setMessage(response);
+                this.messagesStore.setType(false);
+                this.returnListGroup();
+            } else {
+                this.messagesStore.setType(true);
+                this.messagesStore.setMessage("An error occur while deleting the group");
+            }
+        }
     }
 
     public render(): React.ReactNode {
+
+        this.groupStore.listGroup(this.userStore.getUser()!.get_id());
+
         return (
+            <>
             <GroupsView
                 getGroupName={this.getGroupName()}
                 setGroupName={this.setGroupName}
-                setUserSelected={this.setUserSelected}
-                addUser={this.addUser}
-                getUsersSelected={this.getUsersSelected()}
-                getUserSelected={this.getUserSelected()}
-                deleteUser={this.deleteUser}
-                onCreateGroup={this.onCreateGroup}
-            />
+                    setUserSelected={this.setUserSelected}
+                    addUser={this.addUser}
+                    getUsersSelected={this.getUsersSelected()}
+                    getUserSelected={this.getUserSelected()}
+                    deleteUser={this.deleteUser}
+                    onCreateGroup={this.onCreateGroup}
+                    groupList={this.groupStore.getGroupList()}
+                    deleteGroup={this.deleteGroup}
+                />
+            </>
         );
     }
 }

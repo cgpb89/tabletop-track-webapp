@@ -103,13 +103,13 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
                 this.props.history.push("/menu");
             } else {
                 this.messagesStore.setMessage("User and Password do not match!!!");
+                this.messagesStore.setType(false);
                 this.forceUpdate();
             }
         }
     }
 
     public render(): React.ReactNode {
-
         return (
             <>
                 <Header
@@ -125,9 +125,9 @@ class HeaderViewModel extends React.Component<HeaderViewModelProps, any> {
                     setEmail={this.setEmail}
                     getPassword={this.getPassword()}
                     getEmail={this.getEmail()} />
-                {this.messagesStore.getMessage() ?
+                {this.messagesStore.getMessage() && typeof this.messagesStore.getType() !== "undefined" ?
                     <Notification
-                        error
+                        error={this.messagesStore.getType()}
                         text={this.messagesStore.getMessage()} />
                     : <></>}
 

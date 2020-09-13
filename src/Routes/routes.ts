@@ -4,6 +4,7 @@ import ProfileViewModel     from "../ViewModel/ProfileViewModel";
 import GamesViewModel       from "../ViewModel/GamesViewModel";
 import GroupsViewModel      from "../ViewModel/GroupsViewModel";
 import StatsViewModel       from "../ViewModel/StatsViewModel";
+import OneGroupViewModel    from "../ViewModel/OneGroupViewModel";
 
 interface Route {
     component: React.ComponentType;
@@ -63,6 +64,16 @@ const routesList: Route[] = [
             currentRole: roles.USER,
         },
         path     : "/stats"
+    },
+    {
+        component: OneGroupViewModel,
+        exact    : true,
+        name     : "view-group",
+        options: {
+            bodyClass: "body-background",
+            currentRole: roles.USER,
+        },
+        path     : "/view-group/:id"
     },
 ];
 

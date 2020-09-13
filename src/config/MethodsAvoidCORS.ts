@@ -2,8 +2,10 @@ import Axios, { AxiosPromise } from "axios";
 import AccessToken from "../Models/User/AccessToken";
 
     function axiosPost(url: string, params: any): AxiosPromise<any> {
+        debugger;
         return Axios.post(url, params)
             .then(function (response) {
+                debugger;
                 if (response.status === 200) {
                     return response;
                 }

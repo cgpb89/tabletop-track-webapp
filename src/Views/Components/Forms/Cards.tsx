@@ -1,7 +1,17 @@
 import React from "react";
-import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Button } from "@material-ui/core";
+import {
+    Card, CardActionArea,
+    CardMedia, CardContent, CardActions,
+    Button
+} from "@material-ui/core";
+import ButtonC from "./ButtonC";
 
-const DEFAULT = require("../../../images/meeple2.jpg");
+const DEFAULT = require("../../../images/game-8.jpg");
+
+export interface ButtonDetails {
+    title: string;
+    onClick: () => void;
+}
 
 interface CardContainerProps {
     image?: string;
@@ -10,23 +20,31 @@ interface CardContainerProps {
     classMedia?: string;
     actions?: boolean;
     content?: React.ReactNode;
+    cardMedia?: boolean;
+    cardMainAction?: () => void;
+    firstBtnDetails?: ButtonDetails;
+    secondBtnDetails?: ButtonDetails;
 }
 class Cards extends React.Component<CardContainerProps, any> {
 
 
     public render() {
-        const { image, mainTitle, legend, classMedia, actions, content } = this.props;
+        const { image, mainTitle, legend, classMedia, actions, content, cardMedia, firstBtnDetails, secondBtnDetails,
+            cardMainAction } = this.props;
 
         return (
             <Card className={`cards-container`} onClick={() => {
-                console.log("Entra");
+                if (cardMainAction) {
+                    cardMainAction();
+                }
             }}>
                 <CardActionArea >
-                    <CardMedia
-                    className={`cards-media ${classMedia}`}
+                    {cardMedia ? <CardMedia
+                        className={`cards-media ${classMedia}`}
                         image={image ? image : DEFAULT}
                         title="Contemplative Reptile"
-                    />
+                    /> : <></>}
+
                     <CardContent>
                         <span className={`headlines-primary`}>
                             {mainTitle}
@@ -43,12 +61,20 @@ class Cards extends React.Component<CardContainerProps, any> {
                 </CardActionArea>
                 {actions ?
                     <CardActions>
-                        <Button size="small" color="primary">
-                            Share
-                                </Button>
-                        <Button size="small" color="primary">
-                            Learn More
-                                </Button>
+                        <ButtonC
+                            className={"btn btn-blue medium label-secondary"}
+                            label={firstBtnDetails?.title}
+                            onClick={() => {
+                                firstBtnDetails?.onClick();
+                            }} />
+                        <ButtonC
+                            className={"btn btn-red medium label-secondary"}
+                            label={secondBtnDetails?.title}
+                            iconClass={`icon-bin`}
+                            iconPhrase
+                            onClick={() => {
+                                secondBtnDetails?.onClick();
+                            }}/>
                     </CardActions>
                     : <></>}
             </Card>
