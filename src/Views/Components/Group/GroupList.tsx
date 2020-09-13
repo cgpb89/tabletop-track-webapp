@@ -1,28 +1,44 @@
 
 import React from "react";
+import { Link } from 'react-router-dom';
 import Group from "../../../Models/Group";
-import Cards from "../Forms/Cards";
+import Cards, { ButtonDetails } from "../Forms/Cards";
 
 interface GroupListprops {
     groupList: Group[];
+    deleteGroup: (groupId: string) => void;
 }
 
 class GroupList extends React.Component<GroupListprops, any> {
 
     public renderGroup = (): React.ReactNode => {
-        const { groupList } = this.props;
-        console.log(groupList);
+        const { groupList, deleteGroup } = this.props;
         return groupList.map((item: Group, index) => {
-            console.log(item);
             return (
-                <div className={`col-xs-2 col-sm-3 col-md-3 col-lg-3 mt-5`} key={`group-list-${index}`}>
+                <div className={`col-xs-2 col-sm-6 col-md-4 col-lg-3 mt-3`} key={`group-list-${index}`}>
                     <Cards
                         classMedia={"group-small-cards"}
-                        legend={"Check your Groups"}
+                        legend={"Check your Group"}
                         mainTitle={item.getName()}
                         image={this.randomImage()}
                         cardMedia
-                        actions/>
+                        actions
+                        firstBtnDetails={{
+                            onClick: () => {
+                                const toSeeGroup = `//view-group/${item.get_id()}`;
+                                return(
+                                    <Link to={toSeeGroup} />
+                                );
+                            },
+                            title: "View",
+                        } as ButtonDetails}
+                        secondBtnDetails={{
+                            onClick: () => {
+                                deleteGroup(item.get_id());
+                            },
+                            title: "Delete",
+                        } as ButtonDetails}
+                        />
                 </div>
             );
         });
@@ -30,7 +46,7 @@ class GroupList extends React.Component<GroupListprops, any> {
 
     public randomImage = () => {
         const min = 1,
-         max = 6,
+         max = 9,
         rand = min + Math.random() * (max - min),
         image = `game-${parseInt(rand.toString())}`;
 

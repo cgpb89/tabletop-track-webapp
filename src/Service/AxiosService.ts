@@ -148,4 +148,37 @@ export default class AxiosService {
         }
     }
 
+    public deleteGroup = async (userId: string, groupId: string) => {
+        try {
+            return this._axios.delete(`${API_ROUTES.DELETE_GROUP}${groupId}/${userId}`)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.data;
+                }
+                return "";
+            })
+            .catch(function (error) {
+                console.log(error);
+                return error;
+            });
+        } catch (error) {
+            console.log(error.message);
+            return error.messge;
+        }
+    }
+
+    public viewGroup = async (groupId: string) => {
+        const response = await this._axios.get(`${API_ROUTES.GET_GROUP}${groupId}`);
+        try {
+            if (response.status) {
+                return response.data;
+            } else {
+                return false;
+            }   // throw a text
+        } catch (error) {
+            console.log(error.message);
+            return error.messge;
+        }
+    }
+
 }

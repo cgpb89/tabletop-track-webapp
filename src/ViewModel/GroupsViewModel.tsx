@@ -108,6 +108,7 @@ class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
         if (response) {
             this.messagesStore.setMessage("Group created successfully!!!");
             this.messagesStore.setType(false);
+            this.returnListGroup();
         } else {
             this.messagesStore.setType(true);
             this.messagesStore.setMessage("An error occur while creating a group");
@@ -118,9 +119,23 @@ class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
     public returnListGroup = () => {
         setTimeout(async () => {
             const response = await this.groupStore.listGroup(this.userStore.getUser()!.get_id());
-
             this.groupStore.setGroupList(response);
         }, 1000);
+    }
+
+    public deleteGroup = async (groupId: string) => {
+        const user = this.userStore.getUser();
+        if (user) {
+            const response = await this.groupStore.deleteGroup(user.get_id(), groupId);
+            if (typeof response === "string") {
+                this.messagesStore.setMessage(response);
+                this.messagesStore.setType(false);
+                this.returnListGroup();
+            } else {
+                this.messagesStore.setType(true);
+                this.messagesStore.setMessage("An error occur while deleting the group");
+            }
+        }
     }
 
     public render(): React.ReactNode {
@@ -139,6 +154,7 @@ class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
                     deleteUser={this.deleteUser}
                     onCreateGroup={this.onCreateGroup}
                     groupList={this.groupStore.getGroupList()}
+                    deleteGroup={this.deleteGroup}
                 />
             </>
         );

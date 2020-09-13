@@ -4,8 +4,8 @@ import Cards                                from "../Components/Forms/Cards";
 import { RouteComponentProps, withRouter, Link }  from "react-router-dom";
 
 const GAMES = require("../../images/Library.jpg");
-const GROUPS = require("../../images/meeple2.jpg");
-const STATS = require("../../images/bunnyk.png");
+const GROUPS = require("../../images/game-8.jpg");
+const STATS = require("../../images/game-7.jpg");
 
 interface ProfileViewProps extends RouteComponentProps<any> {
     cards?: {
@@ -25,7 +25,7 @@ class ProfileView extends React.Component<ProfileViewProps, any> {
                                 <Cards
                                     mainTitle={"Games"}
                                     image={GAMES}
-                                    legend={"Check your games"} 
+                                    legend={"Check your games"}
                                     cardMedia/>
                             </Link>
                         </div>

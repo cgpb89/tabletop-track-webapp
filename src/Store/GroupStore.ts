@@ -95,6 +95,25 @@ export class GroupStore extends BaseStore {
         return [];
     }
 
+
+    public async deleteGroup(userId: string, groupId: string): Promise<string> {
+        const response = await this.getAjaxService().deleteGroup(userId, groupId);
+        return response;
+    }
+
+    public async viewGroup(userId: string): Promise<Group[]> {
+        const response = await this.getAjaxService().listGroup(userId);
+
+        if (response) {
+            const result: Group[] = [];
+            response.forEach((element: Group) => {
+                result.push(deserialize(Group, element));
+            });
+            return result;
+        }
+        return [];
+    }
+
     private serialize = (group: Group) => {
         const adminUsers: any[] = [];
         group.getAdminUser().forEach((item: User) => {

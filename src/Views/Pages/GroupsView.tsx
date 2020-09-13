@@ -19,6 +19,7 @@ interface GroupsViewProps {
     deleteUser: (user: User) => void;
     onCreateGroup: () => void;
     groupList: Group[];
+    deleteGroup: (groupId: string) => void;
 }
 
 @observer
@@ -52,7 +53,7 @@ class GroupsView extends React.Component<GroupsViewProps, any> {
     }
 
     public render(): React.ReactNode {
-        const { getGroupName, setGroupName, setUserSelected, addUser, onCreateGroup,
+        const { getGroupName, setGroupName, setUserSelected, addUser, onCreateGroup, deleteGroup,
             getUserSelected, getUsersSelected, groupList } = this.props;
         return (
             <Container className={`wrap-container main-content group-page`}>
@@ -106,6 +107,7 @@ class GroupsView extends React.Component<GroupsViewProps, any> {
                     <div className={`col-12`}>
                         <GroupList
                             groupList={groupList}
+                            deleteGroup={deleteGroup}
                         />
                     </div>
                 </div>

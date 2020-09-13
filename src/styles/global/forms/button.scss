@@ -21,6 +21,11 @@
 .btn-blue {
   @include button-bg($primary-btn-color);
 
+  &.medium {
+    padding: 10px 0;
+    width: 50%;
+  }
+
   &.large {
     padding: 15.5px 0;
     width: 100%;
@@ -32,7 +37,12 @@
 }
 
 .btn-red {
-  @include button-bg($quaternary-btn-color);
+  @include button-bg($quinary-btn-color);
+
+  &.medium {
+    padding: 10px 0;
+    width: 50%;
+  }
 }
 
 .btn-white-outline {
