@@ -1,11 +1,10 @@
-.cards-container {
-    height: 260px;;
-
-    .cards-media {
-        height: 120px;
-
-        &.group-small-cards {
-            background-position: 0px -5px;
+.group-small-cards {
+    &.cards-container {
+        height: 260px;;
+    
+        .cards-media {
+            // background-position: 0px -5px;
+            height: 120px;
         }
     }
 }

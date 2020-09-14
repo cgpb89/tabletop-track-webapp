@@ -1,0 +1,38 @@
+.one-group-page {
+    padding: 10px 5px;
+
+    h4 {
+        @include respond(phone) {
+            text-align: center;
+        }
+    }
+
+    .admin-player {
+        &:before {
+            content: "\a0";
+            display: block;
+            line-height: 1px;
+            border-left: 10px solid $primary-color;
+            border-radius: 40%;
+        }
+    }
+
+    .player {
+        display: flex;
+        justify-content: center;
+
+        div {
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .paper-element{
+            background-color: $base-color;
+        }
+
+    }
+}

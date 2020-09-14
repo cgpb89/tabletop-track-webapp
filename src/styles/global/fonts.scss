@@ -17,6 +17,11 @@
         font-weight: 600;
         line-height: 22px;
     }
+
+    @include respond(phone) {
+        font-size: 26px;
+        font-weight: bold;
+    }
 }
 
 .paragraph-primary {
@@ -40,6 +45,12 @@
 
     &.medium {
         font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
+    }
+
+    &.large {
+        font-size: 22px;
         font-weight: 500;
         line-height: 22px;
     }

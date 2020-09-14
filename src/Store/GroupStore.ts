@@ -18,6 +18,7 @@ export class GroupStore extends BaseStore {
     private previousCallAccess: Date;
 
     @serializable(object(Group))
+    @observable
     private group: Group;
 
     @serializable(list(object(Group)))
@@ -101,22 +102,19 @@ export class GroupStore extends BaseStore {
         return response;
     }
 
-    public async viewGroup(userId: string): Promise<Group[]> {
-        const response = await this.getAjaxService().listGroup(userId);
+    public async viewGroup(groupId: string): Promise<Group> {
+        const response = await this.getAjaxService().viewGroup(groupId);
 
         if (response) {
-            const result: Group[] = [];
-            response.forEach((element: Group) => {
-                result.push(deserialize(Group, element));
-            });
+            const result = deserialize(Group, response);
             return result;
         }
-        return [];
+        return new Group();
     }
 
     private serialize = (group: Group) => {
         const adminUsers: any[] = [];
-        group.getAdminUser().forEach((item: User) => {
+        group.getAdminUsers().forEach((item: User) => {
             adminUsers.push(item.get_id());
         });
 
@@ -127,6 +125,7 @@ export class GroupStore extends BaseStore {
 
         const data = {
             adminUsers: adminUsers,
+            id: group.get_id(),
             name: group.getName(),
             players: players,
         };

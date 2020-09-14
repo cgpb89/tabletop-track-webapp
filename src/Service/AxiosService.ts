@@ -171,6 +171,7 @@ export default class AxiosService {
         const response = await this._axios.get(`${API_ROUTES.GET_GROUP}${groupId}`);
         try {
             if (response.status) {
+                console.log(response.data);
                 return response.data;
             } else {
                 return false;

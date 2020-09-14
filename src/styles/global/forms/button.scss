@@ -36,7 +36,7 @@
   @include button-bg($terciary-btn-color);
 }
 
-.btn-red {
+.btn-gray {
   @include button-bg($quinary-btn-color);
 
   &.medium {

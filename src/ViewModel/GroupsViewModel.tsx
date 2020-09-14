@@ -102,7 +102,7 @@ class GroupsViewModel extends React.Component<GroupsViewModelProps, any> {
 
         this.getGroup().setName(this.getGroupName());
         this.getGroup().setPlayers(this.getUsersSelected() ? this.getUsersSelected() as User[] : []);
-        this.getGroup().setAdminUser(adminUser);
+        this.getGroup().setAdminUsers(adminUser);
 
         const response = await this.groupStore.createGroup(this.getGroup());
         if (response) {
