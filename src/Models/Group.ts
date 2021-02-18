@@ -13,7 +13,7 @@ class Group {
 
     @observable
     @serializable(list(object(User)))
-    private adminUser: User[];
+    private adminUsers: User[];
 
     @observable
     @serializable(list(object(User)))
@@ -22,7 +22,7 @@ class Group {
     public constructor() {
         this._id        = "";
         this.name       = "";
-        this.adminUser  = [];
+        this.adminUsers  = [];
         this.players    = [];
     }
 
@@ -42,12 +42,12 @@ class Group {
         this.name = name;
     }
 
-    public getAdminUser(): User[] {
-        return this.adminUser;
+    public getAdminUsers(): User[] {
+        return this.adminUsers;
     }
 
-    public setAdminUser(adminUser: User[]): void {
-        this.adminUser = adminUser;
+    public setAdminUsers(adminUser: User[]): void {
+        this.adminUsers = adminUser;
     }
 
     public getPlayers(): User[] {

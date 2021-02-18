@@ -1,10 +1,10 @@
 
-import React from "react";
-import { Link } from 'react-router-dom';
-import Group from "../../../Models/Group";
+import React                    from "react";
+import { Link, RouteComponentProps, withRouter }                 from "react-router-dom";
+import Group                    from "../../../Models/Group";
 import Cards, { ButtonDetails } from "../Forms/Cards";
 
-interface GroupListprops {
+interface GroupListprops extends RouteComponentProps<any> {
     groupList: Group[];
     deleteGroup: (groupId: string) => void;
 }
@@ -25,10 +25,8 @@ class GroupList extends React.Component<GroupListprops, any> {
                         actions
                         firstBtnDetails={{
                             onClick: () => {
-                                const toSeeGroup = `//view-group/${item.get_id()}`;
-                                return(
-                                    <Link to={toSeeGroup} />
-                                );
+                                const toSeeGroup = `/view-group/${item.get_id()}`;
+                                this.props.history.push(toSeeGroup);
                             },
                             title: "View",
                         } as ButtonDetails}
@@ -63,4 +61,4 @@ class GroupList extends React.Component<GroupListprops, any> {
 
 }
 
-export default GroupList;
+export default withRouter(GroupList);

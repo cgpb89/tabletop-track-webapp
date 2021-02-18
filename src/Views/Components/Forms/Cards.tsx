@@ -33,14 +33,14 @@ class Cards extends React.Component<CardContainerProps, any> {
             cardMainAction } = this.props;
 
         return (
-            <Card className={`cards-container`} onClick={() => {
+            <Card className={`${classMedia} cards-container`} onClick={() => {
                 if (cardMainAction) {
                     cardMainAction();
                 }
             }}>
                 <CardActionArea >
                     {cardMedia ? <CardMedia
-                        className={`cards-media ${classMedia}`}
+                        className={`cards-media`}
                         image={image ? image : DEFAULT}
                         title="Contemplative Reptile"
                     /> : <></>}
@@ -68,7 +68,7 @@ class Cards extends React.Component<CardContainerProps, any> {
                                 firstBtnDetails?.onClick();
                             }} />
                         <ButtonC
-                            className={"btn btn-red medium label-secondary"}
+                            className={"btn btn-gray medium label-secondary"}
                             label={secondBtnDetails?.title}
                             iconClass={`icon-bin`}
                             iconPhrase

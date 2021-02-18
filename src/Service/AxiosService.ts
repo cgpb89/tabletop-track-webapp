@@ -171,7 +171,23 @@ export default class AxiosService {
         const response = await this._axios.get(`${API_ROUTES.GET_GROUP}${groupId}`);
         try {
             if (response.status) {
+                console.log(response.data);
                 return response.data;
+            } else {
+                return false;
+            }   // throw a text
+        } catch (error) {
+            console.log(error.message);
+            return error.messge;
+        }
+    }
+
+    public updateGroup = async (group: any) => {
+        const response = await this._axios.put(API_ROUTES.PUT_GROUP, group);
+        try {
+            console.log(response);
+            if (response.status) {
+                return true;
             } else {
                 return false;
             }   // throw a text
