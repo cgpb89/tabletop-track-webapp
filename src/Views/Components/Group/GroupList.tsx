@@ -26,8 +26,7 @@ class GroupList extends React.Component<GroupListprops, any> {
                         firstBtnDetails={{
                             onClick: () => {
                                 const toSeeGroup = `/view-group/${item.get_id()}`;
-                                console.log(toSeeGroup);
-                                this.props.history.push(toSeeGroup)
+                                this.props.history.push(toSeeGroup);
                             },
                             title: "View",
                         } as ButtonDetails}

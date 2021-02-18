@@ -112,6 +112,13 @@ export class GroupStore extends BaseStore {
         return new Group();
     }
 
+    public async updateGroup(group: Group, userId: string): Promise<boolean> {
+        const groupObj = this.serialize(group);
+        groupObj.userId = userId;
+        const response = await this.getAjaxService().updateGroup(groupObj);
+        return response;
+    }
+
     private serialize = (group: Group) => {
         const adminUsers: any[] = [];
         group.getAdminUsers().forEach((item: User) => {
@@ -128,6 +135,7 @@ export class GroupStore extends BaseStore {
             id: group.get_id(),
             name: group.getName(),
             players: players,
+            userId: ""
         };
         return data;
     }
