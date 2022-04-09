@@ -56,7 +56,7 @@
   "devDependencies": {
     "@types/react-autosuggest": "^9.3.14",
     "mobx-react-devtools": "6.1.1",
-    "moment": "2.26.0",
+    "moment": "2.29.2",
     "reflect-metadata": "0.1.13",
     "serializr": "2.0.3",
     "tslint": "6.1.2",
